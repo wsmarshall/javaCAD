@@ -3,14 +3,97 @@
  * radiuses along the x,y,z axes
  */
 
-return [ Parabola.extrudeByEquation(5,0.27,0,1)
-	.move(20,0,0),
+/**
+double size = 40;
+CSG cube = new Cube(	size,// X dimention
+			size,// Y dimention
+			size//  Z dimention
+			).toCSG()
+//create a sphere
+CSG sphere = new Sphere(size/20*12.5).toCSG()
+// perform a union
+CSG cubePlusSphere = cube.difference(sphere);
+
+
+return [cubePlusSphere , cube.movex(size*1.5), sphere.movey(size*1.5)]
+*/
+
+/**
+double size = 40;
+CSG cube = new Cube(	size,// X dimension
+			size,// Y dimension
+			size//  Z dimension
+			).toCSG()
+//create a sphere
+CSG sphere = new Sphere(size/20*12.5).toCSG()
+// perform a union
+CSG cubePlusSphere = cube.union(sphere);
+
+//To union a list of CSG's together use the static unionAll
+CSG allUnion = CSG.unionAll([cubePlusSphere , cube.movex(size*1.5), sphere.movey(size*1.5)])
+
+return allUnion
+*/
+
+/**
+double size = 40;
+CSG cube = new Cube(	size,// X dimension
+			size,// Y dimension
+			size//  Z dimension
+			).toCSG()
+			//Scale lets you increase or decrease the size by a scale factor
+			
+CSG cubeSmall = cube
+		.scalex(0.5)
+		.scaley(0.5)
+		.scalez(0.5)
+		.movey(size*1.5)
+			
+// this can be a shell or printer keepaway
+// this increases the size by a specific measurment in mm
+CSG cubeBigger = cube
+		.makeKeepaway((double)10.0)
+		.movex(size*1.5)
+				
+return [cube,cubeBigger, cubeSmall ]
+*/
+
+/**
+//Move and rotate operations
+double size =40;
+CSG cube = new Cube(size,// X dimension
+			size,// Y dimension
+			size//  Z dimension
+			).toCSG()
+		
+//cubeIntersectSphere = cubeIntersectSphere.move(x,y,z);// vector notation
+CSG movedCube = cube
+			.movex(50) //movement is of the center of the object
+			.movey(50) //along the 3 specified axes
+			.movez(50)
+//rotate
+//cubeIntersectSphere = cubeIntersectSphere.rot(rx,ry,rz);// vector notation
+movedCube = movedCube //note the rotations are along the object's x, y, and z axes
+			.rotx(45)
+			.roty(45)
+			.rotz(45)
+//set colors
+cube.setColor(javafx.scene.paint.Color.CYAN);
+movedCube.setColor(javafx.scene.paint.Color.RED);
+
+return [cube,movedCube]
+*/
+
+/**
+return [ Parabola.extrudeByEquation(5,0.27,0,1)//first 3 are tk, 4th is height
+	.move(20,0,0),//x, y, z
 	Parabola.coneByEquation(5,1.27,0.7)
 	.move(30,0,0),
 	Parabola.coneByFocalLength(10, 10),
 	Parabola.coneByHeight(10, 20)
 		.move(50,0,0)
 ]
+*/
 
 /**
 //triangular wedges
