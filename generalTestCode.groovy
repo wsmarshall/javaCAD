@@ -3,6 +3,148 @@
  * radiuses along the x,y,z axes
  */
 
+
+
+/**
+CSG referencedThingy =  (CSG)ScriptingEngine
+	                    .gitScriptRun(
+                                "https://gist.github.com/d0a4fcda488a8958095b.git", // git location of the library
+	                              "FactoryToBeLoaded.groovy" , // file to load
+	                              null// no parameters (see next tutorial)
+                        )
+println "Loading factory CSG "+referencedThingy
+return referencedThingy
+*/
+
+//return new Cube(20,40,80)
+  //          .toCSG()
+
+/**
+double rad =2
+def base = new Cube(20).toCSG()
+			.difference(new Cube(5,10,20).toCSG())
+			.difference(new Cube(10,5,20).toCSG())
+			.rotz(5)
+			.toZMin()
+List<Polygon> polys = Slice.slice(base)
+return [Fillet.outerFillet( base,(double)rad),polys]
+*/
+
+/**
+import  eu.mihosoft.vrl.v3d.ext.quickhull3d.*
+import eu.mihosoft.vrl.v3d.Vector3d
+
+//Move and rotate opperations
+double size =40;
+CSG cube = new Cube(	size,// X dimension
+			size,// Y dimension
+			size//  Z dimension
+			).toCSG()
+CSG movedCube =  new Sphere(size).toCSG()
+			.movex(-20)
+			.movey(-40)
+			.movez(60)
+//This section is how you perform a shape of the "shrinkwrap" of the 2 shapes. 
+CSG hulledCubes = cube.union(movedCube).hull();
+
+//Alternate way to perform a Hull
+hulledCubes = CSG.hullAll([cube,movedCube])
+def points = [	new Vector3d(10, 50, 10),
+			new Vector3d(10, 40, 10),
+			new Vector3d(-10, 50, 10),
+			new Vector3d(-10, 40, 10),
+			new Vector3d(0, 50, 60)
+]
+CSG hullSection = HullUtil.hull(points)
+
+return [cube,movedCube,hulledCubes.movex(size*2),hullSection]
+ */
+
+/**
+//adding toManufacturing closure that will be called when you run 'to STL' or 'to SVG'
+ // Make a cube and put it up in the air
+CSG cubeInTheAir = new Cube(10).toCSG()
+				.movez(30)
+				.rotx(15)// rotate so it would not print well
+cubeInTheAir.setName("CubeInTheAir")
+cubeInTheAir.addExportFormat("stl")// make an stl of the object
+cubeInTheAir.addExportFormat("svg")// make an svg of the object
+cubeInTheAir.setManufacturing({ toMfg -> //this will be called when you run 'to STL' or 'to SVG'
+	return toMfg
+			.rotx(-15)// fix the orentation
+			.toZMin()//move it down to the flat surface
+})	
+*/
+
+/**
+//TODO 
+// Load an STL file from a git repo
+// Loading a local file also works here
+File servoFile = ScriptingEngine.fileFromGit(
+	"https://github.com/NeuronRobotics/BowlerStudioVitamins.git",
+	"BowlerStudioVitamins/stl/servo/smallservo.stl");
+// Load the .CSG from the disk and cache it in memory
+CSG servo  = Vitamins.get(servoFile);
+String filename =ScriptingEngine.getWorkspace().getAbsolutePath()+"/CopiedStl.stl";
+FileUtil.write(Paths.get(filename),
+		servo.toStlString());
+println "STL EXPORT to "+filename
+return servo;
+*/
+
+/**
+//TODO minkowski difference?
+
+CSG startCube = new Cube(100).toCSG()
+CSG cubeToFit = new Sphere(50/2).toCSG()
+				.movez(startCube.getMaxZ())
+				.setColor(javafx.scene.paint.Color.RED)
+// This performs an intersection of the 2 parts, then minkowski the intersection,then cut the result from the base shape
+// Use this function to make cut outs that will be 3d printed
+CSG clearenceFit = startCube
+				.minkowskiDifference(
+					cubeToFit,// the part we want to fit into a cutout
+					5.0// the offset distance to fit
+					)
+// To simply make a normal offset version of a given object us this function
+// positive values makes a normal outset, and negative values makes a normal inset. 			
+CSG clearenceObject = cubeToFit.toolOffset(5.0)
+					.movey(100)
+// To simply make a normal offset version of a given object us this function
+// positive values makes a normal outset, and negative values makes a normal inset. 			
+CSG clearenceObject2 = cubeToFit.toolOffset(-10.0)
+					.movex(200)
+										
+CSG printNozzel = new Sphere(10/2).toCSG();
+// Access the raw minkowski intermediates
+ArrayList<CSG> mikObjs = cubeToFit.minkowski(printNozzel);
+CSG remaining = cubeToFit;
+for(CSG bit: mikObjs){
+	remaining=remaining.intersect(bit);
+}
+remaining=remaining
+			.movex(100)
+mikObjs=mikObjs.collect{
+	return it.movex(100).movey(100)			
+}
+mikObjs.addAll([clearenceFit,cubeToFit,clearenceObject,remaining,clearenceObject2])
+return mikObjs
+*/
+
+/**
+double size =40;
+CSG cube = new Cube(	size,// X dimension
+			size,// Y dimension
+			size//  Z dimension
+			).toCSG()
+//create a sphere
+CSG sphere = new Sphere(size/20*12.5).toCSG()
+// perform an intersection
+CSG cubePlusSphere = cube.intersect(sphere);
+
+return [cubePlusSphere , cube.movex(size*1.5), sphere.movey(size*1.5)]
+*/
+
 /**
 double size = 40;
 CSG cube = new Cube(	size,// X dimention
@@ -11,7 +153,7 @@ CSG cube = new Cube(	size,// X dimention
 			).toCSG()
 //create a sphere
 CSG sphere = new Sphere(size/20*12.5).toCSG()
-// perform a union
+// perform a difference
 CSG cubePlusSphere = cube.difference(sphere);
 
 
