@@ -3,7 +3,144 @@
  * radiuses along the x,y,z axes
  */
 
+import eu.mihosoft.vrl.v3d.CSG
+import eu.mihosoft.vrl.v3d.Cube
+import eu.mihosoft.vrl.v3d.Extrude
+import eu.mihosoft.vrl.v3d.Polygon
+import eu.mihosoft.vrl.v3d.Slice
+import eu.mihosoft.vrl.v3d.Transform
 
+def base = new Cube(20).toCSG()
+			.difference(new Cube(5,10,20).toCSG())
+			.difference(new Cube(10,5,20).toCSG())
+			.rotz(5)
+			.toZMin()
+List<Polygon> polys = Slice.slice(base,new Transform(),0)
+
+
+return [base.movez(20),polys]
+
+ /**
+import eu.mihosoft.vrl.v3d.Polygon;
+import eu.mihosoft.vrl.v3d.Vertex;
+import eu.mihosoft.vrl.v3d.Transform;
+import java.util.List;
+
+CSG cube = new Cube(10)
+			.toCSG()
+			.toZMin()
+
+Transform mover = new Transform()
+
+mover.rotZ(25)// rotate by 25 degrees
+mover.translateX(20)//move 10 mm in x
+
+// Load the list of polygons
+List<Polygon> polygons = cube.getPolygons()
+
+// This will move the polygons within the CSG without changing the list of polygons. 
+List<Polygon> movedpolygons = polygons.collect{
+	it.transformed(mover)
+}
+for(Polygon p: movedpolygons){
+	println p.vertices
+}
+
+println polygons.size()+" Polygons "+ polygons
+
+// Look at one specific polygon
+Polygon aPolygon = polygons.get(0)
+
+// Look at the list of polygons
+List<Vertex> vertices = aPolygon.vertices
+
+println vertices.size()+" vertices "+ vertices
+// Load one vertex from the list
+Vertex aVertex = vertices.get(0)
+// Extract the position data from the vertex
+Vector3d position = aVertex.pos
+
+println " A point x=" +position.x+" y=" +position.y+" z="+position.z
+// remove 2 polygons
+movedpolygons.remove(0)
+movedpolygons.remove(0)
+// create a CSG from a set of polygons
+CSG afterMove =  CSG.fromPolygons(movedpolygons)
+return [cube, movedpolygons]
+*/
+
+/**
+CSG makeCube(){
+	//Set up som parameters to use
+	xkey 		= new LengthParameter("X dimention",30,[120.0,1.0])
+	ykey 		= new LengthParameter("Y dimention",30,[130.0,2.0])
+	zkey 		= new LengthParameter("Z dimention",30,[140.0,3.0])
+	sphereSize 	= new LengthParameter("Sphere Size",30,[150.0,4.0])
+	//you can also create parametrics that are not used in creating primitives
+	offset	 	= new LengthParameter("Sphere Offset Distance",15,[20,-5])
+	//build geometry with them
+	def cube = new Cube(xkey,ykey,zkey).toCSG()	
+	sphere = new Sphere(sphereSize).toCSG()
+	//apply moves based on the values in the parameters
+	distance = xkey.getMM()/2-offset.getMM()+sphereSize.getMM()
+	cube=cube.union(sphere.movex(distance))
+	return cube
+		.setParameter(offset)// add any parameters that are not used to create a primitive
+		.setRegenerate({ makeCube()})// add a regeneration function to the CSG being returned to lonk a change event to a re-render
+}
+//CSGDatabase.clear()//set up the database to force only the default values in			
+return makeCube();
+*/
+
+//animatronic head
+//return (ArrayList<CSG> )ScriptingEngine.gitScriptRun("https://github.com/madhephaestus/ParametricAnimatronics.git", "AnimatronicHead.groovy" ,  args )
+
+/**
+double size =40;
+CSG cube = new Cube(	size,// X dimension
+			size,// Y dimension
+			size//  Z dimension
+			).toCSG()
+//create a sphere
+CSG sphere = new Sphere(size/20*12.5).toCSG()
+BowlerStudioController.setCsg(sphere,null)
+// perform a union
+CSG cubePlusSphere = cube.difference(sphere);
+//You can return a CSG and set colors as a form of debugging
+// Options: https://docs.oracle.com/javase/8/javafx/api/javafx/scene/paint/Color.html
+cubePlusSphere.setColor(javafx.scene.paint.Color.CYAN);
+//returning early displays just this item
+BowlerStudioController.addCsg(cubePlusSphere)
+
+return [cubePlusSphere , cube.movex(size*1.5), sphere.movey(size*1.5)]
+*/
+
+
+/**
+//note: transform operations happen using function order (f(g(x)) is g, then f
+def pionter = new Cylinder(	20, // Radius at the bottom
+                      		0, // Radius at the top
+                      		40, // Height
+                      		(int)4 //resolution; or number of sides
+                      		).toCSG()//convert to CSG to display      
+                      		              			 
+def transform = new Transform()
+		.rotz( 10) // x,y,z	
+		.movex(20)// X , y, z	
+ 		.roty( 45) // x,y,z
+def pionterftmoved =  pionter.transformed(   transform)
+// is the same as
+def piontermoved =  pionter
+		.rotz( 10) // x,y,z	
+		.movex(20)// X , y, z	
+ 		.roty( 45) // x,y,z
+		.movez(1)// move it up to see that its even there
+		.setColor(javafx.scene.paint.Color.CYAN);
+// return the list of parts
+return [pionterftmoved,
+piontermoved
+]
+*/
 
 /**
 ArrayList<Object> servoMeasurments = new ArrayList<Object>();
