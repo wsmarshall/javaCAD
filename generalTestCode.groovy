@@ -3,6 +3,180 @@
  * radiuses along the x,y,z axes
  */
 
+
+
+/**
+import eu.mihosoft.vrl.v3d.svg.*;
+import eu.mihosoft.vrl.v3d.Extrude;
+File f = ScriptingEngine
+	.fileFromGit(
+		"https://gist.github.com/1606010b686494cea33527b71c98570a.git",//git repo URL
+		"master",//branch
+		"airFoil.svg"// File from within the Git repo
+	)
+SVGLoad s = new SVGLoad(f.toURI())
+ArrayList<CSG>foil = s.extrude(0.01,0.01)
+
+CSG part = foil.get(0)
+			.union(foil)
+			.roty(90)
+			.rotx(180)
+			.toZMin()
+			.toYMin()
+
+ArrayList<CSG> parts = new ArrayList<CSG>()
+int numParts = 80
+for(int i=0;i<numParts;i++){
+	double scale = (5+4*Math.cos(Math.PI*1*i/numParts)
+					+0.1*Math.sin(Math.PI*30*i/numParts)
+					)
+	double twistAngle = Math.toDegrees(Math.cos(Math.PI*2*i/numParts))		
+	//println scale 
+	parts.add(
+		part.scale(scale)
+			.rotx(twistAngle)
+	)
+}
+
+return Extrude.bezier(	parts,
+					[(double)00.0,(double)0.0,(double)300.0], // Control point one
+					[(double)50.0,(double)50,(double)300.0], // Control point two
+					[(double)50.0,(double)50.0,(double)300.0] // Endpoint
+					)
+*/
+
+/**
+import eu.mihosoft.vrl.v3d.Extrude;
+
+
+CSG part = new Cube(10).toCSG()
+
+ArrayList<CSG> parts = new ArrayList<CSG>()
+int numParts = 10
+for(int i=0;i<numParts;i++){	
+	//println scale 
+	parts.add(part.clone())
+}
+// A full bezier extrud with the gaps between the parts filled with a convex hull of the part
+def fullBezier =  Extrude.bezier(	parts,
+					[(double)0.0,(double)0.0,(double)300.0], // Control point one
+					[(double)200.0,(double)200.0,(double)-150.0], // Control point two
+					[(double)200.0,(double)200.0,(double)300.0]// Endpoint
+					)
+
+// take the parts and just move to locations along the bezier curve
+def movedCubesBezier =  Extrude.moveBezier(	parts,
+					[(double)0,(double)0,(double)300], // Control point one
+					[(double)200,(double)200,(double)-150], // Control point two
+					[(double)200,(double)200,(double)300] // Endpoint
+					).collect{
+						it.movey(200)							
+					}
+// This is for creating a set of frame transformations from the bezier parameters
+// this can be used for complex part creation or for path planning
+ArrayList<Transform> transforms = 	Extrude.bezierToTransforms(	new Vector3d(0,(double)0,(double)300), // Control point one
+													new Vector3d((double)200,(double)200,(double)-150), // Control point two
+													new Vector3d((double)200,(double)200,(double)300), // Endpoint
+													numParts// Iterations
+					)			
+fullBezier.addAll(movedCubesBezier)
+
+return fullBezier
+*/
+
+
+/**
+import eu.mihosoft.vrl.v3d.svg.*;
+import eu.mihosoft.vrl.v3d.Extrude;
+
+File f = ScriptingEngine
+	.fileFromGit(
+		"https://gist.github.com/1606010b686494cea33527b71c98570a.git",//git repo URL
+		"master",//branch
+		"airFoil.svg"// File from within the Git repo
+	)
+println "Extruding SVG "+f.getAbsolutePath()
+SVGLoad s = new SVGLoad(f.toURI())
+def foil = s.extrude(10,0.01)
+
+return foil.collect{it.scale(10)}
+*/
+
+/**
+import com.neuronrobotics.bowlerstudio.vitamins.Vitamins;
+
+// Set a specific repository for the vitamins
+Vitamins.setGitRepoDatabase("https://github.com/madhephaestus/Hardware-Dimensions.git")
+
+ArrayList<String> types = Vitamins.listVitaminTypes()
+println "\n\nAll availible types: "+types
+CSG vitaminFromScript = Vitamins.get("hobbyServo","standard");
+
+println "\n\nOptional servo sizes: "+Vitamins.listVitaminSizes("hobbyServo")
+
+HashMap<String, Object>  vitaminData = Vitamins.getConfiguration( "hobbyServo","standard")
+
+println "\n\nMeasurments used to generate servo: "+vitaminData 
+
+println "\n\nA specific measurment : "+vitaminData.servoShaftSideHeight 
+println "A specific measurment using HashMap syntax : "+vitaminData.get("servoShaftSideHeight")
+println "\n\nHorn data "+Vitamins.getConfiguration( "hobbyServoHorn","hv6214mg_1")
+
+return vitaminFromScript
+*/
+
+/**
+import com.neuronrobotics.bowlerstudio.vitamins.*;
+
+// Load an STL file from a git repo
+// Loading a local file also works here
+File servoFile = ScriptingEngine.fileFromGit(
+	"https://github.com/NeuronRobotics/BowlerStudioVitamins.git",
+	"BowlerStudioVitamins/stl/servo/smallservo.stl");
+// Load the .CSG from the disk and cache it in memory
+CSG servo  = Vitamins.get(servoFile);
+
+//servo = servo.toZMax()// move servos maxZ to 0
+servo = servo.toZMin()// move servos minZ to 0
+//servo = servo.toXMax()// move servos maxX to 0
+servo = servo.toXMin()// move servos zminX to 0
+//servo = servo.toYMax()// move servos maxY to 0
+servo = servo.toYMin()// move servos minY to 0
+
+println "Maximum X dimention = " + servo.getMaxX()
+println "Maximum Y dimention = " + servo.getMaxY()
+println "Maximum Z dimention = " + servo.getMaxZ()
+
+println "Minimum X dimention = " + servo.getMinX()
+println "Minimum Y dimention = " + servo.getMinY()
+println "Minimum Z dimention = " + servo.getMinZ()
+
+
+println "Total X dimention = " + (-servo.getMinX()+servo.getMaxX())
+println "Total Y dimention = " + (-servo.getMinY()+servo.getMaxY())
+println "Total Z dimention = " + (-servo.getMinZ()+servo.getMaxZ())
+
+println "Center in X dimention = " + ((servo.getMinX()/2)+(servo.getMaxX()/2))
+println "Center in Y dimention = " + ((servo.getMinY()/2)+(servo.getMaxY()/2))
+println "Center in Z dimention = " + ((servo.getMinZ()/2)+(servo.getMaxZ()/2))
+
+
+  //You can make functions to center objects usig this information
+ 
+CSG moveToXCenter(CSG incoming){
+	return incoming.movex(((incoming.getMinX()/2)+(incoming.getMaxX()/2)))
+}
+CSG moveToYCenter(CSG incoming){
+	return incoming.movey(((incoming.getMinY()/2)+(incoming.getMaxY()/2)))
+}
+CSG moveToZCenter(CSG incoming){
+	return incoming.movez(((incoming.getMinZ()/2)+(incoming.getMaxZ()/2)))
+}
+
+return servo
+*/
+
+/**
 import eu.mihosoft.vrl.v3d.CSG
 import eu.mihosoft.vrl.v3d.Cube
 import eu.mihosoft.vrl.v3d.Extrude
@@ -19,6 +193,7 @@ List<Polygon> polys = Slice.slice(base,new Transform(),0)
 
 
 return [base.movez(20),polys]
+*/
 
  /**
 import eu.mihosoft.vrl.v3d.Polygon;
