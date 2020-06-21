@@ -29,6 +29,7 @@ Polygon secondCross = innerCross
 CSG crossExtrusion2 = Extrude.polygons(innerCross, secondCross)
 					.movex(50)
 
+//return the base shape, the slice, the z extrusion, and the complex extrusion
 return [base.movez(20),polys,crossExtrusion,crossExtrusion2]
 
 /**
