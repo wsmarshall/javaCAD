@@ -3,6 +3,36 @@
  * radiuses along the x,y,z axes
  */
 
+
+import eu.mihosoft.vrl.v3d.parametrics.*;
+import com.neuronrobotics.bowlerstudio.vitamins.Vitamins;
+
+
+CSGDatabase.clear()//set up the database to force only the default values in
+
+def	 printerOffset		= new LengthParameter("printerOffset",0.5,[2,0.001])
+def	 noseLength		= new LengthParameter("noseLength",20,[200,001])
+def	 jawLength		= new LengthParameter("jawLength",40,[200,001])
+def	 eyeDiam 		= new LengthParameter("Eye Diameter",40,[60,38])
+def	 servoSizeParam 			= new StringParameter("hobbyServo Default","DHV56mg_sub_Micro",Vitamins.listVitaminSizes("hobbyServo"))
+	// servoSizeParam 			= new StringParameter("hobbyServo Default","towerProMG91",Vitamins.listVitaminSizes("hobbyServo"))
+def	 eyemechRadius		= new LengthParameter("Eye Mech Linkage",12,[20,5])
+def	 hornSizeParam 			= new StringParameter("hobbyServoHorn Default","DHV56mg_sub_Micro_1",Vitamins.listVitaminSizes("hobbyServoHorn"))
+	// hornSizeParam 			= new StringParameter("hobbyServoHorn Default","standardMicro1",Vitamins.listVitaminSizes("hobbyServoHorn"))
+def	 eyeCenter 		= new LengthParameter("Eye Center Distance",eyeDiam.getMM()*1.5,[100,eyeDiam.getMM()])
+def	 noseDiameter 		= new LengthParameter("Nose Diameter",eyeDiam.getMM()*2,[eyeDiam.getMM()*3,10])
+def	 bearingSizeParam 			= new StringParameter("Bearing Size","608zz",Vitamins.listVitaminSizes("ballBearing"))
+
+
+def headParts  = (ArrayList<CSG> )ScriptingEngine.gitScriptRun(
+	"https://github.com/madhephaestus/ParametricAnimatronics.git", 
+	"3dPrintableHead.groovy" ,  
+	[] )
+	
+return headParts
+
+/**
+//text extrusion
 import eu.mihosoft.vrl.v3d.*;
 import javafx.scene.text.Font;
 
@@ -12,6 +42,7 @@ return TextExtrude.text((double)10.0,"Hello World!",font).collect{
 	it.rotx(180)
 	.toZMin()
 }
+*/
 
 /**
 double wheelRadius = 33.0
