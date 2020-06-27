@@ -4,6 +4,8 @@ CSG topSphere = new Sphere(2).toCSG().movez(75)
 
 CSG topDome = new Cylinder (5, 0, 5, (100)).toCSG().movez(70)
 
+//need 2 polygons, 12 sided? dif of smaller from bigger for 'crown' piece
+
 CSG mainCylinder  = new Cylinder(7.5, 5, 70, (100)).toCSG()
 
 CSG baseCylinder = new Cylinder(15, 6, 10, (100)).toCSG()
