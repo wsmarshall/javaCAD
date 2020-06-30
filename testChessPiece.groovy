@@ -15,10 +15,13 @@ CSG baseCylinder = new Cylinder(16, 6, 5, (100)).toCSG()
 CSG lowestTurn = new RoundedCylinder(16, 3).cornerRadius(2).toCSG().movez(2.5)
 CSG lowCone = new Cylinder(15, 5, 10, (100)).toCSG().movez(5.5)
 CSG lowestRing = new RoundedCylinder(8, 4).cornerRadius(3).toCSG().movez(12)
-//add in crown drop cylinder
+CSG crownCylinder = new Cylinder(5, 5, 10, (100)).toCSG().movez(69)
+CSG topCylinderRing = new RoundedCylinder(6, 3).cornerRadius(3).toCSG().movez(68)
+CSG midCylinderRing = new Cylinder(8, 8, 1.5, (100)).toCSG().movez(65)
+CSG botCylinderRing = new Cylinder(10, 10, 2, (100)).toCSG().movez(63)
 
-CSG topAssembly = CSG.unionAll([crown, topDome, topSphere])
-CSG bottomPiece = CSG.unionAll([baseCylinder, lowestTurn, lowCone, lowestRing, mainCylinder])
+CSG topAssembly = CSG.unionAll([crown, topDome, topSphere, crownCylinder, topCylinderRing, midCylinderRing, botCylinderRing])
+CSG bottomPiece = CSG.unionAll([baseCylinder, mainCylinder, lowestTurn, lowCone, lowestRing])
 //need to hull bottomPiece before final union
 
 CSG fullPiece = CSG.unionAll([bottomPiece, topAssembly])
