@@ -13,8 +13,8 @@ CSG mainCylinder  = new Cylinder(7.5, 3, 80, (100)).toCSG()
 
 CSG baseCylinder = new Cylinder(16, 6, 5, (100)).toCSG()
 CSG lowestTurn = new RoundedCylinder(16, 3).cornerRadius(2).toCSG().movez(2.5)
-CSG lowCone = new Cylinder(15, 5, 10, (100)).toCSG().movez(5.5)
-CSG lowestRing = new RoundedCylinder(8, 4).cornerRadius(3).toCSG().movez(12)
+CSG lowCone = new Cylinder(15, 5, 20, (100)).toCSG().movez(5.5)
+CSG lowestRing = new RoundedCylinder(7, 4).cornerRadius(3).toCSG().movez(22)
 CSG crownCylinder = new Cylinder(5, 5, 10, (100)).toCSG().movez(69)
 CSG topCylinderRing = new RoundedCylinder(6, 3).cornerRadius(3).toCSG().movez(68)
 CSG midCylinderRing = new Cylinder(8, 8, 1.5, (100)).toCSG().movez(65)
@@ -26,6 +26,6 @@ CSG bottomPiece = CSG.unionAll([baseCylinder, mainCylinder, lowestTurn, lowCone,
 
 CSG fullPiece = CSG.unionAll([bottomPiece, topAssembly])
 
-fullPiece.setColor(javafx.scene.paint.Color.CYAN); //change this to black later
+fullPiece.setColor(javafx.scene.paint.Color.BLACK); 
 
 return fullPiece
