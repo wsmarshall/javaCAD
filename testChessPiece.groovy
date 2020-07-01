@@ -24,9 +24,9 @@ CSG botCylinderRing = new Cylinder(10, 10, 2, (100)).toCSG().movez(63)
 CSG topAssembly = CSG.unionAll([crown, topDome, topSphere, crownCylinder, topCylinderRing, midCylinderRing, botCylinderRing])
 CSG bottomPiece = CSG.unionAll([baseCylinder, mainCylinder, lowestTurn, lowCone, lowestRing])
 
-
 CSG fullPiece = CSG.unionAll([bottomPiece, topAssembly])
 
 fullPiece.setColor(javafx.scene.paint.Color.WHITE); 
 
 return fullPiece
+
