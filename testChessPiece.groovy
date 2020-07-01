@@ -1,4 +1,5 @@
-//goal: black queen
+//goal: a recognizable piece
+//(recognizability in the eye of the beholder)
 
 CSG topSphere = new Sphere(2).toCSG().movez(83)
 
@@ -22,10 +23,10 @@ CSG botCylinderRing = new Cylinder(10, 10, 2, (100)).toCSG().movez(63)
 
 CSG topAssembly = CSG.unionAll([crown, topDome, topSphere, crownCylinder, topCylinderRing, midCylinderRing, botCylinderRing])
 CSG bottomPiece = CSG.unionAll([baseCylinder, mainCylinder, lowestTurn, lowCone, lowestRing])
-//need to hull bottomPiece before final union
 
 CSG fullPiece = CSG.unionAll([bottomPiece, topAssembly])
 
-fullPiece.setColor(javafx.scene.paint.Color.BLACK); 
+fullPiece.setColor(javafx.scene.paint.Color.WHITE); 
 
 return fullPiece
+
