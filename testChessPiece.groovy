@@ -1,5 +1,7 @@
-//goal: a recognizable piece
+//goal: a recognizable item
 //(recognizability in the eye of the beholder)
+
+double length = 85
 
 CSG topSphere = new Sphere(2).toCSG().movez(83)
 
