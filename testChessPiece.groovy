@@ -3,10 +3,12 @@
 
 double height = 85 //total height in mm of the piece
 double width =  32 //total diameter of the base of the piece
+double smallDistance = 0.0625 * width
+double nearTopOfShape = 0.98 * height
 
 //beginning of the top part, aka the 'head' of the piece
 //sphere at the very top of the piece
-CSG topSphere = new Sphere(width * 0.0625).toCSG().movez(height * 0.98)
+CSG topSphere = new Sphere(smallDistance).toCSG().movez(nearTopOfShape)
 
 //'hemispheric dome' that the top sphere rests on
 CSG topDome = new Cylinder (width * 0.15625, 0, height* 0.0235, ((int) width * 4)).toCSG().movez(height * 0.94)
