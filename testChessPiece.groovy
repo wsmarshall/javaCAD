@@ -1,6 +1,11 @@
 //goal: a recognizable item
 //(recognizability in the eye of the beholder)
 
+/*
+ * next step is to set up some parameters to use, as in
+ * https://commonwealthrobotics.com/JavaCAD/Parameters/
+ */
+
 double height = 85 //total height in mm of the piece
 double width =  32 //total diameter of the base of the piece
 double smallDistance = 0.0625 * width
