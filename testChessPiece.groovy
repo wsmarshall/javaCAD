@@ -6,6 +6,14 @@
  * https://commonwealthrobotics.com/JavaCAD/Parameters/
  */
 
+//try parameters
+CSG makeQueen(){
+	
+}
+
+return makeQueen();
+
+/**
 double height = 85 //total height in mm of the piece
 double width =  32 //total diameter of the base of the piece
 double smallDistance = 0.0625 * width
@@ -69,3 +77,4 @@ CSG fullPiece = CSG.unionAll([bottomPiece, topAssembly])
 fullPiece.setColor(javafx.scene.paint.Color.WHITE); 
 
 return fullPiece
+*/
