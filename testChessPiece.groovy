@@ -9,7 +9,8 @@
 //try parameters
 CSG makeQueen(){
 	//set up parameters to use
-	length = new LengthParameter("height of piece", 30, [120.0, 1.0])
+	height = new LengthParameter("height of piece", 30, [120.0, 1.0])
+	width = new LengthParameter("width of piece", 10, [120.0, 1.0])
 }
 
 return makeQueen();
