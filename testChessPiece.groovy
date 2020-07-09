@@ -7,6 +7,7 @@
  */
 
 //try parameters
+//set up and test push on away machine
 CSG makeQueen(){
 	//set up parameters to use
 	height = new LengthParameter("height of piece", 30, [120.0, 1.0])
