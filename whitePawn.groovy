@@ -6,4 +6,4 @@ CSG makepawn(){
 	sphereSize = new LengthParameter("radius of top sphere", 8, [120.0, 1.0])
 }
 
-return makeQueen();
+return makePawn();
