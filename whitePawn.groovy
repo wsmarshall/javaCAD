@@ -5,6 +5,8 @@ CSG makepawn(){
 	width = new LengthParameter("width of piece", 10, [100.0, 1.0])
 	sphereSize = new LengthParameter("radius of top sphere", 8, [120.0, 1.0])
 	squatFactor = new LengthParameter("how 'squished' the piece looks", 5, [110.0, 1.0])
+	//make the shapes that we need to combine
+	
 }
 
 return makePawn();
