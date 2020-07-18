@@ -33,7 +33,7 @@ CSG makeCube(){
 	cube=cube.union(sphere.movex(distance))
 	return cube
 		.setParameter(offset)// add any parameters that are not used to create a primitive
-		//.setRegenerate({ makeCube()})// add a regeneration function to the CSG being returrned to lonk a change event to a re-render
+		.setRegenerate({ makeCube()})// add a regeneration function to the CSG being returrned to lonk a change event to a re-render
 }
 //CSGDatabase.clear()//set up the database to force only the default values in			
 return makeCube();
