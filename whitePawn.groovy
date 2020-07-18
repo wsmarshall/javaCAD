@@ -18,7 +18,7 @@ return makePawn();
 
 //try playing with the example first, then go to parameterizing the easier piece above
 CSG makeCube(){
-	//Set up som parameters to use
+	//Set up some parameters to use
 	xkey 		= new LengthParameter("X dimention",30,[120.0, 1.0])//what's the format for the LengthParameter?
 	ykey 		= new LengthParameter("Y dimention",30,[130.0,2.0])//no time today, try again tomorrow
 	zkey 		= new LengthParameter("Z dimention",30,[140.0,3.0])
@@ -28,12 +28,12 @@ CSG makeCube(){
 	//build geometry with them
 	def cube = new Cube(xkey,ykey,zkey).toCSG()	
 	sphere = new Sphere(sphereSize).toCSG()
-	//apply moves based on the valeus in the parameters
+	//apply moves based on the values in the parameters
 	distance = xkey.getMM()/2-offset.getMM()+sphereSize.getMM()
 	cube=cube.union(sphere.movex(distance))
 	return cube
 		.setParameter(offset)// add any parameters that are not used to create a primitive
-		.setRegenerate({ makeCube()})// add a regeneration function to the CSG being returrned to lonk a change event to a re-render
+		//.setRegenerate({ makeCube()})// add a regeneration function to the CSG being returrned to lonk a change event to a re-render
 }
 //CSGDatabase.clear()//set up the database to force only the default values in			
 return makeCube();
