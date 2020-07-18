@@ -19,8 +19,8 @@ return makePawn();
 //try playing with the example first, then go to parameterizing the easier piece above
 CSG makeCube(){
 	//Set up som parameters to use
-	xkey 		= new LengthParameter("X dimention",30,[120.0, 1.0])//what's the format for the LengthParameter? find out tomorrow
-	ykey 		= new LengthParameter("Y dimention",30,[130.0,2.0])
+	xkey 		= new LengthParameter("X dimention",30,[120.0, 1.0])//what's the format for the LengthParameter?
+	ykey 		= new LengthParameter("Y dimention",30,[130.0,2.0])//no time today, try again tomorrow
 	zkey 		= new LengthParameter("Z dimention",30,[140.0,3.0])
 	sphereSize 	= new LengthParameter("Sphere Size",30,[150.0,4.0])
 	//you can also create parametrics that are not used in creating primitives
