@@ -20,20 +20,21 @@ return makePawn();
 CSG makeCube(){
 	//Set up some parameters to use
 	xkey 		= new LengthParameter("X dimention",30,[120.0, 1.0])//what's the format for the LengthParameter?
-	ykey 		= new LengthParameter("Y dimention",30,[130.0,2.0])//no time today, try again tomorrow
+	ykey 		= new LengthParameter("Y dimention",30,[130.0,2.0])
 	zkey 		= new LengthParameter("Z dimention",30,[140.0,3.0])
 	sphereSize 	= new LengthParameter("Sphere Size",30,[150.0,4.0])
 	//you can also create parametrics that are not used in creating primitives
 	offset	 	= new LengthParameter("Sphere Offset Distance",15,[20,-5])
 	//build geometry with them
-	def cube = new Cube(xkey,ykey,zkey).toCSG()	
+	def cube = new Cube(xkey,ykey,zkey).toCSG()	//why def here?
 	sphere = new Sphere(sphereSize).toCSG()
 	//apply moves based on the values in the parameters
-	distance = xkey.getMM()/2-offset.getMM()+sphereSize.getMM()
+	distance = xkey.getMM()/2-offset.getMM()+sphereSize.getMM()//getMM() returns the LengthParameter's numerical value in millimeters, I think
 	cube=cube.union(sphere.movex(distance))
 	return cube
 		.setParameter(offset)// add any parameters that are not used to create a primitive
-		.setRegenerate({ makeCube()})// add a regeneration function to the CSG being returrned to lonk a change event to a re-render
+		.setRegenerate({ makeCube()})// add a regeneration function to the CSG being returned to link a change event to a re-render
 }
-//CSGDatabase.clear()//set up the database to force only the default values in			
+CSGDatabase.clear()//set up the database to force only the default values in	
+//commenting out that database force mean I can't tweak values in the original code? why?	(what does the CSG database do?)
 return makeCube();
