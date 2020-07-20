@@ -38,3 +38,4 @@ CSG makeCube(){
 CSGDatabase.clear()//set up the database to force only the default values in	
 //commenting out that database force mean I can't tweak values in the original code? why?	(what does the CSG database do?)
 return makeCube();
+//investigate answers tomorrow
