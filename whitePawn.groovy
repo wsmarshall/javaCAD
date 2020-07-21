@@ -19,14 +19,14 @@ return makePawn();
 //try playing with the example first, then go to parameterizing the easier piece above
 CSG makeCube(){
 	//Set up some parameters to use
-	xkey 		= new LengthParameter("X dimention",30,[120.0, 1.0])//what's the format for the LengthParameter?
-	ykey 		= new LengthParameter("Y dimention",30,[130.0,2.0])
-	zkey 		= new LengthParameter("Z dimention",30,[140.0,3.0])
+	xkey 		= new LengthParameter("X dimension",30,[120.0, 1.0])//what's the format for the LengthParameter?
+	ykey 		= new LengthParameter("Y dimension",30,[130.0,2.0])
+	zkey 		= new LengthParameter("Z dimension",30,[140.0,3.0])
 	sphereSize 	= new LengthParameter("Sphere Size",30,[150.0,4.0])
 	//you can also create parametrics that are not used in creating primitives
 	offset	 	= new LengthParameter("Sphere Offset Distance",15,[20,-5])
 	//build geometry with them
-	def cube = new Cube(xkey,ykey,zkey).toCSG()	//why def here?
+	cube = new Cube(xkey,ykey,zkey).toCSG()	//why def at beg. of line? seems to work without it
 	sphere = new Sphere(sphereSize).toCSG()
 	//apply moves based on the values in the parameters
 	distance = xkey.getMM()/2-offset.getMM()+sphereSize.getMM()//getMM() returns the LengthParameter's numerical value in millimeters, I think
@@ -38,4 +38,3 @@ CSG makeCube(){
 CSGDatabase.clear()//set up the database to force only the default values in	
 //commenting out that database force mean I can't tweak values in the original code? why?	(what does the CSG database do?)
 return makeCube();
-//investigate answers tomorrow
