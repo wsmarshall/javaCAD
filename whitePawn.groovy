@@ -1,5 +1,4 @@
 //try at parameterizing an easier piece first
-/**
 CSG makePawn(){
 	//set up parameters to use
 	height = new LengthParameter("height of piece", 30, [120.0, 1.0])
@@ -9,13 +8,14 @@ CSG makePawn(){
 	//make the shapes that we need to combine
 	sphere = new Sphere(sphereSize).toCSG()
 
-	return [sphere]
+	return sphere
+		.setRegenerate({makePawn()})//when parameters change, object re-renders to reflect user's specified change
 	
 }
-
+CSGDatabase.clear()
 return makePawn();
-*/
 
+/**
 //try playing with the example first, then go to parameterizing the easier piece above
 CSG makeCube(){
 	//Set up some parameters to use
@@ -38,3 +38,4 @@ CSG makeCube(){
 CSGDatabase.clear()//set up the database to force only the default values in	
 //commenting out that database force mean I can't tweak values in the original code? why?	(what does the CSG database do?)
 return makeCube();
+*/
