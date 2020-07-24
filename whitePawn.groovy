@@ -26,7 +26,7 @@ CSG makePawn(){
 	return fullPiece
 		.setRegenerate({makePawn()})//when parameters change, object re-renders to reflect user's specified change
 	
-}
+}	
 CSGDatabase.clear()//This is necessary to be able to change to default values when running from code
 return makePawn();
 
