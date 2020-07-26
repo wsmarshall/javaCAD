@@ -6,6 +6,7 @@ CSG makePawn(){
 	sphereSize = new LengthParameter("radius of top sphere", 8, [120.0, 1.0])
 	squatFactor = new LengthParameter("how 'squished' the piece looks", 5, [110.0, 1.0])
 	//computation of measurements from the parameters
+	//refactor this - it's slowing the code down?
 	sideRes = (int) height.getMM()*width.getMM()//how "rounded" the sides are (how many side 'facets' make up the side in question)
 	mostlyAllHeight = (int) 0.90 * height.getMM()//mostly all the way up the piece
 	mostlyHeight = (int) 0.8 * height.getMM()//most of the way up the piece
