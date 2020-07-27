@@ -7,6 +7,7 @@ CSG makePawn(){
 	squatFactor = new LengthParameter("how 'squished' the piece looks", 5, [110.0, 1.0])
 	//computation of measurements from the parameters
 	//refactor this - it's slowing the code down?
+	/**
 	sideRes = (int) height.getMM()*width.getMM()//how "rounded" the sides are (how many side 'facets' make up the side in question)
 	mostlyAllHeight = (int) 0.90 * height.getMM()//mostly all the way up the piece
 	mostlyHeight = (int) 0.8 * height.getMM()//most of the way up the piece
@@ -15,6 +16,7 @@ CSG makePawn(){
 	someWidth = (int) 0.65 * width.getMM()//some of the way through the piece
 	halfWidth = (int) 0.5 * width.getMM()//halfway through the piece
 	aChunkOfWidth = (int) 0.3 * width.getMM()//only a little of the way through the piece
+	*/
 	//make the shapes that we need to combine
 	sphere = new Sphere(sphereSize, sideRes, sideRes).toCSG().movez(mostlyAllHeight)//makes the head of the pawn, moves it up the piece
 	mainCylinder = new Cylinder(someWidth, halfWidth, mostlyHeight, (sideRes)).toCSG() //cylinder that makes up the body, thins as it rises
