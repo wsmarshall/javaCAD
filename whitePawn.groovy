@@ -6,11 +6,11 @@ CSG makePawn(){
 	sphereSize = new LengthParameter("radius of top sphere", 8, [120.0, 1.0])
 	squatFactor = new LengthParameter("how 'squished' the piece looks", 5, [110.0, 1.0])
 	//computation of measurements from the parameters
-	
+	sideRes = (int) (width.getMM() * height.getMM())
 	//make the shapes that we need to combine
-	sphere = new Sphere(sphereSize, sideRes, sideRes).toCSG().movez(mostlyAllHeight)//makes the head of the pawn, moves it up the piece
-	mainCylinder = new Cylinder(someWidth, halfWidth, mostlyHeight, (sideRes)).toCSG() //cylinder that makes up the body, thins as it rises
-	baseCylinder = new Cylinder (width.getMM(), aChunkOfWidth, aLittleHeight, (sideRes)).toCSG()//base conical cylinder
+	sphere = new Sphere(sphereSize, sideRes, sideRes).toCSG().movez(height.getMM())//makes the head of the pawn, moves it up the piece
+	mainCylinder = new Cylinder(width, width, height, (sideRes)).toCSG() //cylinder that makes up the body, thins as it rises
+	baseCylinder = new Cylinder (width, width, height, (sideRes)).toCSG()//base conical cylinder
 	//combine all the pieces to make the full piece
 	CSG fullPiece = CSG.unionAll([baseCylinder, mainCylinder, sphere])
 	//change the color to the desired shade
