@@ -3,6 +3,7 @@ CSG makePawn(){
 	//set up parameters to use
 	height = new LengthParameter("height of piece", 50.0, [120.0, 1.0])
 	width = new LengthParameter("width of piece", 15.0, [100.0, 1.0])
+	//narrowWidth = new LengthParameter("smallest width of piece", 2.0, [50, 1.0])
 	sphereSize = new LengthParameter("radius of top sphere", 8, [120.0, 1.0])
 	squatFactor = new LengthParameter("how 'squished' the piece looks", 5, [110.0, 1.0])
 	//computation of measurements from the parameters
