@@ -1,20 +1,26 @@
 //goal: a recognizable item
 //(recognizability in the eye of the beholder)
 
-/*
- * next step is to set up some parameters to use, as in
- * https://commonwealthrobotics.com/JavaCAD/Parameters/
- */
-
-//try parameters
-//set up and test push on away machine
-CSG makeQueen(){
+CSG makePiece(){
 	//set up parameters to use
 	height = new LengthParameter("height of piece", 30, [120.0, 1.0])
 	width = new LengthParameter("width of piece", 10, [120.0, 1.0])
-}
 
-return makeQueen();
+	//computation of constants from parameters
+
+	//make shapes to combine
+
+	//combine all the pieces to make the full piece
+	CSG fullPiece = CSG.unionAll([])
+	//change the color to the desired shade
+	fullPiece.setColor(javafx.scene.paint.Color.DIMGRAY);
+
+	return fullPiece
+		.setRegenerate({makePiece()})//when parameters change, object rerenders to reflect user-specified changes
+	
+}
+CSGDatabase.clear()//necessary in order to change default values when running from code
+return makePiece();
 
 /**
 double height = 85 //total height in mm of the piece
