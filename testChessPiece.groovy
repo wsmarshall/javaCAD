@@ -3,9 +3,9 @@
 
 CSG makePiece(){
 	//set up parameters to use
-	height = new LengthParameter("height of piece", 30, [120.0, 1.0])
-	width = new LengthParameter("width of piece", 10, [120.0, 1.0])
-
+	height = new LengthParameter("height of piece", 85, [120.0, 1.0])//default total height of the piece
+	width = new LengthParameter("width of piece", 32, [120.0, 1.0])//default total diameter of the base of the piece
+	sphereSize = new LengthParameter("diameter of the topmost sphere", 2, [10, 0.5])//default diameter of top sphere on head of piece
 	//computation of constants from parameters
 
 	//make shapes to combine
@@ -23,8 +23,6 @@ CSGDatabase.clear()//necessary in order to change default values when running fr
 return makePiece();
 
 /**
-double height = 85 //total height in mm of the piece
-double width =  32 //total diameter of the base of the piece
 double smallDistance = 0.0625 * width
 double nearTopOfShape = 0.98 * height
 
@@ -82,8 +80,4 @@ CSG bottomPiece = CSG.unionAll([baseCylinder, mainCylinder, lowestTurn, lowCone,
 //top and bottom get put together
 CSG fullPiece = CSG.unionAll([bottomPiece, topAssembly])
 
-//set the color of the piece
-fullPiece.setColor(javafx.scene.paint.Color.WHITE); 
-
-return fullPiece
 */
