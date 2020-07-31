@@ -7,9 +7,10 @@ CSG makePiece(){
 	width = new LengthParameter("width of piece", 32, [120.0, 1.0])//default total diameter of the base of the piece
 	sphereSize = new LengthParameter("diameter of the topmost sphere", 2, [10, 0.5])//default diameter of top sphere on head of piece
 	//computation of constants from parameters
-
+	double smallDistance = 0.0625 * width.getMM() //only a small ways, as compared to the defined width
+	double nearTop = 0.98 * height.getMM() //near top of the piece
 	//make shapes to combine
-
+	
 	//combine all the pieces to make the full piece
 	CSG fullPiece = CSG.unionAll([])
 	//change the color to the desired shade
