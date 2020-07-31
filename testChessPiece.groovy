@@ -24,9 +24,6 @@ CSGDatabase.clear()//necessary in order to change default values when running fr
 return makePiece();
 
 /**
-double smallDistance = 0.0625 * width
-double nearTopOfShape = 0.98 * height
-
 //beginning of the top part, aka the 'head' of the piece
 //sphere at the very top of the piece
 CSG topSphere = new Sphere(smallDistance).toCSG().movez(nearTopOfShape)
