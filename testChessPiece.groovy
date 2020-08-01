@@ -12,6 +12,8 @@ CSG makePiece(){
 	//make shapes to combine
 	
 	//combine all the pieces to make the full piece
+	//combine top part
+	//combine bottom part
 	CSG fullPiece = CSG.unionAll([])
 	//change the color to the desired shade
 	fullPiece.setColor(javafx.scene.paint.Color.DIMGRAY);
