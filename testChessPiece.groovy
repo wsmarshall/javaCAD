@@ -12,10 +12,10 @@ CSG makePiece(){
 	//make shapes to combine
 		//beginning of the top part, or the "head" of the piece
 	CSG topSphere = new Sphere(smallDistance).toCSG().movez(nearTop) //the sphere at the very top
-	
-	//combine all the pieces to make the full piece
+
 	//combine top part
 	//combine bottom part
+	//combine both top and bottom parts to make the full piece
 	CSG fullPiece = CSG.unionAll([])
 	//change the color to the desired shade
 	fullPiece.setColor(javafx.scene.paint.Color.DIMGRAY);
