@@ -10,6 +10,8 @@ CSG makePiece(){
 	double smallDistance = 0.0625 * width.getMM() //only a small ways, as compared to the defined width
 	double nearTop = 0.98 * height.getMM() //near top of the piece
 	//make shapes to combine
+		//beginning of the top part, or the "head" of the piece
+	CSG topSphere = new Sphere(smallDistance).toCSG().movez(nearTop) //the sphere at the very top
 	
 	//combine all the pieces to make the full piece
 	//combine top part
@@ -26,9 +28,6 @@ CSGDatabase.clear()//necessary in order to change default values when running fr
 return makePiece();
 
 /**
-//beginning of the top part, aka the 'head' of the piece
-//sphere at the very top of the piece
-CSG topSphere = new Sphere(smallDistance).toCSG().movez(nearTopOfShape)
 
 //'hemispheric dome' that the top sphere rests on
 CSG topDome = new Cylinder (width * 0.15625, 0, height* 0.0235, ((int) width * 4)).toCSG().movez(height * 0.94)
