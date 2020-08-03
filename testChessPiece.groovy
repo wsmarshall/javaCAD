@@ -11,8 +11,8 @@ CSG makePiece(){
 	double nearTop = 0.98 * height.getMM() //near top of the piece
 	//make shapes to combine
 		//beginning of the top part, or the "head" of the piece
-	CSG topSphere = new Sphere(smallDistance).toCSG().movez(nearTop) //the sphere at the very top
-
+	CSG topSphere = new Sphere(sphereSize).toCSG().movez(nearTop) //the sphere at the very top
+	//CSG topDome =  new Cylinder ()
 	//combine top part
 	//combine bottom part
 	//combine both top and bottom parts to make the full piece
