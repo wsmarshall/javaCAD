@@ -7,8 +7,13 @@ CSG makePiece(){
 	width = new LengthParameter("width of piece", 32, [120.0, 1.0])//default total diameter of the base of the piece
 	sphereSize = new LengthParameter("diameter of the topmost sphere", 2, [10, 0.5])//default diameter of top sphere on head of piece
 	//computation of constants from parameters
+	sideRes = (int) (height.getMM() * width.getMM())//how rounded (faceted) the sides will be
 	double smallDistance = 0.0625 * width.getMM() //only a small ways, as compared to the defined width
-	double nearTop = 0.98 * height.getMM() //near top of the piece
+	//replace nearTop with height - small distance for use?
+	
+	//double nearTop = 0.98 * height.getMM() //near top of the piece
+	//need the following constants: 5, 8, 10, 15, 20
+	
 	//make shapes to combine
 		//beginning of the top part, or the "head" of the piece
 	CSG topSphere = new Sphere(sphereSize).toCSG().movez(nearTop) //the sphere at the very top
