@@ -8,12 +8,12 @@ CSG makePiece(){
 	sphereSize = new LengthParameter("diameter of the topmost sphere", 2, [10, 0.5])//default diameter of top sphere on head of piece
 	//computation of constants from parameters
 	sideRes = (int) (height.getMM() * width.getMM())//how rounded (faceted) the sides will be
-	double smallDistance = 0.0625 * width.getMM() //only a small ways, as compared to the defined width
-	//replace nearTop with height - small distance for use?
-	
-	//double nearTop = 0.98 * height.getMM() //near top of the piece
-	//need the following constants: 5, 8, 10, 15, 20
-	
+	double smallestDistance = 0.0625 * width.getMM() //only a small ways, as compared to the defined width. defaults to 2
+	double smallerDistance = 0.15625 * height.getMM()//defaults to 5
+	double smallDistance = 0.25 * width.getMM() //defaults to 8
+	double distance = 0.3125 * width.getMM() //defaults to 10
+	double bigDistance = 0.46875 * width.getMM() //defaults to 15
+	double biggerDistance = 0.625 * width.getMM() //defaults to 20
 	//make shapes to combine
 		//beginning of the top part, or the "head" of the piece
 	CSG topSphere = new Sphere(sphereSize).toCSG().movez(nearTop) //the sphere at the very top
