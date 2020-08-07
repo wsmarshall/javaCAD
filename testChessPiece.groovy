@@ -14,6 +14,7 @@ CSG makePiece(){
 	double distance = 0.3125 * width.getMM() //defaults to 10
 	double bigDistance = 0.46875 * width.getMM() //defaults to 15
 	double biggerDistance = 0.625 * width.getMM() //defaults to 20
+	//is this enough constants? let's find out!
 	//make shapes to combine
 		//beginning of the top part, or the "head" of the piece
 	CSG topSphere = new Sphere(sphereSize).toCSG().movez(nearTop) //the sphere at the very top
