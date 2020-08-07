@@ -8,17 +8,26 @@ CSG makePiece(){
 	sphereSize = new LengthParameter("diameter of the topmost sphere", 2, [10, 0.5])//default diameter of top sphere on head of piece
 	//computation of constants from parameters
 	sideRes = (int) (height.getMM() * width.getMM())//how rounded (faceted) the sides will be
-	double smallestDistance = 0.0625 * width.getMM() //only a small ways, as compared to the defined width. defaults to 2
+	double aSmidge = 0.5 //half a millimeter
+	double EvenSmallestDistance = 0.0625 * width.getMM() //only a small ways, as compared to the defined width. defaults to 2
+	double smallestDistance = 0.09375 * width.getMM() //slightly larger than a small way. defaults to 3
 	double smallerDistance = 0.15625 * height.getMM()//defaults to 5
 	double smallDistance = 0.25 * width.getMM() //defaults to 8
 	double distance = 0.3125 * width.getMM() //defaults to 10
 	double bigDistance = 0.46875 * width.getMM() //defaults to 15
 	double biggerDistance = 0.625 * width.getMM() //defaults to 20
-	//is this enough constants? let's find out!
+	int largerWidth = 4 * width.getMM() //wider than the width parameter
+	double halfWidth = 0.5 * width.getMM() // half of the width parameter
 	//make shapes to combine
 		//beginning of the top part, or the "head" of the piece
-	CSG topSphere = new Sphere(sphereSize).toCSG().movez(nearTop) //the sphere at the very top
-	//CSG topDome =  new Cylinder ()
+	CSG topSphere = new Sphere(sphereSize).toCSG().movez(height.getMM() - smallestDistance) //the sphere at the very top
+	CSG topDome =  new Cylinder (smallerDistance, 0, EvenSmallestDistance, (largerWidth)).movez(height.getMM() - smallerDistance)//hemispheric dome that topSphere rests on
+	CSG outerCrown = new Cylinder(smallerDistance, smallestDistance + smallerDistance, smallestDistance, ((int) halfWidth)).toCSG()//outer part of the 'crown' piece
+	CSG innerCrown = new Cylinder(smallestDistance + aSmidge, smallerDistance, smallestDistance, ((int) halfWidth).toCSG()//inner part of the 'crown' piece
+	CSG crown = outerCrown.difference(innerCrown).movez(height.getMM() - smallDistance);//difference of the outer and inner, gives "crown shell"
+		//beginning of the bottom part, or the base & body of the piece
+
+	CSG connectingSpine = new Cylinder(EvenSmallestDistance, EvenSmallestDistance, height, sideRes).toCSG() //runs the length of the piece
 	//combine top part
 	//combine bottom part
 	//combine both top and bottom parts to make the full piece
@@ -34,23 +43,6 @@ CSGDatabase.clear()//necessary in order to change default values when running fr
 return makePiece();
 
 /**
-
-//'hemispheric dome' that the top sphere rests on
-CSG topDome = new Cylinder (width * 0.15625, 0, height* 0.0235, ((int) width * 4)).toCSG().movez(height * 0.94)
-CSG topDome = new Cylinder (5, 0, 2, (100)).toCSG().movez(80)
-
-//outer part of the 'crown' piece
-CSG outerCrown = new Cylinder (width * 0.15625, width * 0.21875, height * 0.035, ((int) width * 0.5)).toCSG()
-CSG outerCrown = new Cylinder (5, 7, 3, (16)).toCSG()
-
-//inner part of the 'crown' piece
-CSG innerCrown = new Cylinder (width * 0.109, width * 0.15625, height * 0.035, ((int) width * 0.5)).toCSG()
-CSG innerCrown = new Cylinder (3.5, 5, 3, (16)).toCSG()
-
-//difference of the outer and inner, gives "crown shell"
-CSG crown = outerCrown.difference(innerCrown).movez(height * 0.912);
-CSG crown = outerCrown.difference(innerCrown).movez(77.5);
-
 //the cylinder that comes down from the crown and ends at the smallest ring
 CSG crownCylinder = new Cylinder(width * 0.15625, width * 0.15625, height * 0.1176, ((int)width * 4)).toCSG().movez(height * 0.8117)
 CSG crownCylinder = new Cylinder(5, 5, 10, (100)).toCSG().movez(69)
