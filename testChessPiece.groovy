@@ -29,12 +29,12 @@ CSG makePiece(){
 	CSG topSphere = new Sphere(sphereSize).toCSG()	
 		.movez(height.getMM() - smallestDistance) 
 		//hemispheric dome that topSphere rests on
-	CSG topDome =  new Cylinder (smallerDistance, 0, EvenSmallestDistance, (largerWidth))
-		.movez(height.getMM() - smallestDistance)
+	CSG topDome =  new Cylinder (smallerDistance, 0, evenSmallestDistance, (largerWidth))
+		.movez((int)(height.getMM() - smallestDistance))
 		//outer part of the 'crown' piece
 	CSG outerCrown = new Cylinder(smallerDistance, smallestDistance + smallerDistance, smallestDistance, ((int) halfWidth)).toCSG()
 		//inner part of the 'crown' piece
-	CSG innerCrown = new Cylinder(smallestDistance + aSmidge, smallerDistance, smallestDistance, ((int) halfWidth).toCSG()
+	CSG innerCrown = new Cylinder(smallestDistance + aSmidge, smallerDistance, smallestDistance, ((int) halfWidth).toCSG())
 		//difference of the outer and inner, gives "crown shell"
 	CSG crown = outerCrown.difference(innerCrown).movez(height.getMM() - smallDistance);
 		//the cylinder that comes down from the crown and ends at the smallest ring
@@ -45,23 +45,23 @@ CSG makePiece(){
 		.movez(fourFifthsHeight)
 		//below the 'head', the middle and middle sized ring of the three
 	CSG midCylinderRing = new Cylinder(smallDistance, smallDistance, evenSmallestDistance, (sideRes).toCSG()	
-		.movez((fourFifthsHeight - evenSmallestDistance))
+		.movez((fourFifthsHeight - evenSmallestDistance)))
 		//below the middle ring, the largest ring of the three
 	CSG botCylinderRing = new Cylinder(distance, distance, evenSmallestDistance, (sideRes).toCSG()
-		.movez(fourFifthsHeight - smallerDistance - evenSmallestDistance)
+		.movez(fourFifthsHeight - smallerDistance - evenSmallestDistance))
 		
 	//beginning of the bottom part, or the base & body of the piece
 		//runs the length of the piece, allows user to access height as a UI parameter via slider
 	CSG connectingSpine = new Cylinder(EvenSmallestDistance, EvenSmallestDistance, height, sideRes).toCSG() 
 		//the 'spine' of the whole piece
-	CSG mainCylinder  = new Cylinder(smallDistance, smallestDistance, fourFifthsHeight, (sideRes).toCSG()
+	CSG mainCylinder  = new Cylinder(smallDistance, smallestDistance, fourFifthsHeight, (sideRes)).toCSG()
 		//very bottom cone of piece
-	CSG baseCylinder = new Cylinder(width, smallerDistance, smallerDistance, (sideRes).toCSG()
+	CSG baseCylinder = new Cylinder(width, smallerDistance, smallerDistance, (sideRes)).toCSG()
 		//very bottom 'ring' - the 'crenelated' bezel just above the base
 	CSG lowestTurn = new RoundedCylinder(halfWidth, smallestDistance).cornerRadius(evenSmallestDistance).toCSG()
 		.movez(smallestDistance)
 		//'cone' piece that is visible/accessible to a hypothetical hand, near base (but not base)
-	CSG lowCone = new Cylinder(bigDistance, smallerDistance, biggerDistance, (sideRes).toCSG(
+	CSG lowCone = new Cylinder(bigDistance, smallerDistance, biggerDistance, (sideRes)).toCSG()
 		.movez(height.getMM() + smallestDistance + smallestDistance)
 		//the 'crenelated bezel' that sits just above the lowCone
 	CSG lowConeTopRing = new RoundedCylinder(width * 0.2186, width * 0.125).cornerRadius(width * 0.0625).toCSG().movez(height * 0.2588)
