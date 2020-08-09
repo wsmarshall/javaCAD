@@ -30,7 +30,7 @@ CSG makePiece(){
 		.movez(height.getMM() - smallestDistance) 
 		//hemispheric dome that topSphere rests on
 	CSG topDome =  new Cylinder (smallerDistance, 0, evenSmallestDistance, (largerWidth))
-		.movez((int)(height.getMM() - smallestDistance))
+		.movez((int)(height.getMM() - smallestDistance)) //TODO problem with the arguments in the movez 
 		//outer part of the 'crown' piece
 	CSG outerCrown = new Cylinder(smallerDistance, smallestDistance + smallerDistance, smallestDistance, ((int) halfWidth)).toCSG()
 		//inner part of the 'crown' piece
