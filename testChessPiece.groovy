@@ -29,12 +29,12 @@ CSG makePiece(){
 	CSG topSphere = new Sphere(sphereSize).toCSG()	
 		.movez(height.getMM() - smallestDistance) 
 		//hemispheric dome that topSphere rests on
-	CSG topDome =  new Cylinder (smallerDistance, 0, evenSmallestDistance, (largerWidth))
-		.movez((int)(height.getMM() - smallestDistance)) //TODO problem with the arguments in the movez 
+	CSG topDome =  new Cylinder (smallerDistance, 0, evenSmallestDistance, (largerWidth)).toCSG()
+		.movez((height.getMM() - smallestDistance)) //TODO problem with the arguments in the movez 
 		//outer part of the 'crown' piece
 	CSG outerCrown = new Cylinder(smallerDistance, smallestDistance + smallerDistance, smallestDistance, ((int) halfWidth)).toCSG()
 		//inner part of the 'crown' piece
-	CSG innerCrown = new Cylinder(smallestDistance + aSmidge, smallerDistance, smallestDistance, ((int) halfWidth).toCSG())
+	CSG innerCrown = new Cylinder(smallestDistance + aSmidge, smallerDistance, smallestDistance, ((int) halfWidth)).toCSG()
 		//difference of the outer and inner, gives "crown shell"
 	CSG crown = outerCrown.difference(innerCrown).movez(height.getMM() - smallDistance);
 		//the cylinder that comes down from the crown and ends at the smallest ring
@@ -44,11 +44,11 @@ CSG makePiece(){
 	CSG topCylinderRing = new Cylinder (smallestDistance + smallestDistance, smallestDistance).toCSG()
 		.movez(fourFifthsHeight)
 		//below the 'head', the middle and middle sized ring of the three
-	CSG midCylinderRing = new Cylinder(smallDistance, smallDistance, evenSmallestDistance, (sideRes).toCSG()	
-		.movez((fourFifthsHeight - evenSmallestDistance)))
+	CSG midCylinderRing = new Cylinder(smallDistance, smallDistance, evenSmallestDistance, (sideRes)).toCSG()	
+		.movez((fourFifthsHeight - evenSmallestDistance))
 		//below the middle ring, the largest ring of the three
-	CSG botCylinderRing = new Cylinder(distance, distance, evenSmallestDistance, (sideRes).toCSG()
-		.movez(fourFifthsHeight - smallerDistance - evenSmallestDistance))
+	CSG botCylinderRing = new Cylinder(distance, distance, evenSmallestDistance, (sideRes)).toCSG()
+		.movez(fourFifthsHeight - smallerDistance - evenSmallestDistance)
 		
 	//beginning of the bottom part, or the base & body of the piece
 		//runs the length of the piece, allows user to access height as a UI parameter via slider
