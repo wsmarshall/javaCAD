@@ -48,15 +48,15 @@ CSG makePiece(){
 		.movez((fourFifthsHeight - evenSmallestDistance))
 		//below the middle ring, the largest ring of the three
 	CSG botCylinderRing = new Cylinder(distance, distance, evenSmallestDistance, (sideRes)).toCSG()
-		.movez(fourFifthsHeight - smallerDistance - evenSmallestDistance)
+		.movez((fourFifthsHeight - smallerDistance - evenSmallestDistance))
 		
 	//beginning of the bottom part, or the base & body of the piece
 		//runs the length of the piece, allows user to access height as a UI parameter via slider
-	CSG connectingSpine = new Cylinder(EvenSmallestDistance, EvenSmallestDistance, height, sideRes).toCSG() 
+	CSG connectingSpine = new Cylinder(sphereSize, sphereSize, height, (sideRes)).toCSG() 
 		//the 'spine' of the whole piece
 	CSG mainCylinder  = new Cylinder(smallDistance, smallestDistance, fourFifthsHeight, (sideRes)).toCSG()
 		//very bottom cone of piece
-	CSG baseCylinder = new Cylinder(width, smallerDistance, smallerDistance, (sideRes)).toCSG()
+	CSG baseCylinder = new Cylinder(width, sphereSize, sphereSize, (sideRes)).toCSG()
 		//very bottom 'ring' - the 'crenelated' bezel just above the base
 	CSG lowestTurn = new RoundedCylinder(halfWidth, smallestDistance).cornerRadius(evenSmallestDistance).toCSG()
 		.movez(smallestDistance)
