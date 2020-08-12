@@ -64,13 +64,13 @@ CSG makePiece(){
 	CSG lowCone = new Cylinder(bigDistance, smallerDistance, biggerDistance, (sideRes)).toCSG()
 		.movez(height.getMM() + smallestDistance + smallestDistance)
 		//the 'crenelated bezel' that sits just above the lowCone
-	CSG lowConeTopRing = new RoundedCylinder(width * 0.2186, width * 0.125).cornerRadius(width * 0.0625).toCSG().movez(height * 0.2588)
+	CSG lowConeTopRing = new RoundedCylinder(smallDistance, smallerDistance).cornerRadius(evenSmallestDistance).toCSG().movez(biggerDistance + evenSmallestDistance)
 	
 	//combine top part
 	CSG topAssembly = CSG.unionAll([topSphere, topDome, crown, crownCylinder, topCylinderRing, midCylinderRing, botCylinderRing])
 		
 	//combine bottom part
-	CSG bottomPiece = CSG.unionAll([baseCylinder, mainCylinder, lowestTurn, lowCone, lowConeTopRing])
+	CSG bottomPiece = CSG.unionAll([connectingSpine, mainCylinder, baseCylinder, lowestTurn, lowCone, lowConeTopRing])
 	
 	//combine both top and bottom parts to make the full piece
 	CSG fullPiece = CSG.unionAll([topAssembly, bottomPiece])
