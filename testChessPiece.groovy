@@ -1,6 +1,8 @@
 //goal: a recognizable item
 //(recognizability in the eye of the beholder)
 
+//TODO code is stalling ("running out of heap space") fix the problems -- how?
+
 CSG makePiece(){
 //set up parameters to use
 	//default total height of the piece
