@@ -28,6 +28,7 @@ CSG makePiece(){
 //make shapes to combine
 	//beginning of the top part, or the "head" of the piece
 		//the sphere at the very top
+
 	CSG topSphere = new Sphere(sphereSize).toCSG()	
 		.movez(height.getMM() - smallestDistance) 
 		//hemispheric dome that topSphere rests on
@@ -51,7 +52,7 @@ CSG makePiece(){
 		//below the middle ring, the largest ring of the three
 	CSG botCylinderRing = new Cylinder(distance, distance, evenSmallestDistance, (sideRes)).toCSG()
 		.movez((fourFifthsHeight - smallerDistance - evenSmallestDistance))
-		
+/**		
 	//beginning of the bottom part, or the base & body of the piece
 		//runs the length of the piece, allows user to access height as a UI parameter via slider
 	CSG connectingSpine = new Cylinder(sphereSize, sphereSize, height, (sideRes)).toCSG() 
@@ -67,10 +68,10 @@ CSG makePiece(){
 		.movez(height.getMM() + smallestDistance + smallestDistance)
 		//the 'crenelated bezel' that sits just above the lowCone
 	CSG lowConeTopRing = new RoundedCylinder(smallDistance, smallerDistance).cornerRadius(evenSmallestDistance).toCSG().movez(biggerDistance + evenSmallestDistance)
-	
+*/	
 	//combine top part
 	CSG topAssembly = CSG.unionAll([topSphere, topDome, crown, crownCylinder, topCylinderRing, midCylinderRing, botCylinderRing])
-		
+/**		
 	//combine bottom part
 	CSG bottomPiece = CSG.unionAll([connectingSpine, mainCylinder, baseCylinder, lowestTurn, lowCone, lowConeTopRing])
 	
@@ -81,7 +82,7 @@ CSG makePiece(){
 
 	return fullPiece
 		.setRegenerate({makePiece()})//when parameters change, object rerenders to reflect user-specified changes
-	
+*/
 }
 CSGDatabase.clear()//necessary in order to change default values when running from code
 return makePiece();
