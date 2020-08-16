@@ -11,6 +11,8 @@ CSG makePiece(){
 	width = new LengthParameter("width of piece", 15, [120.0, 1.0])
 	//default diameter of top sphere on head of piece
 	sphereSize = new LengthParameter("diameter of the topmost sphere", 2, [10, 0.5])
+	//width of the connecting spine 
+	spineWidth = new LengthParameter("diameter of the connecting spine", 1, [1, 0.1])
 //computation of constants from parameters
 	sideRes = (int) (30)//how rounded (faceted) the sides will be
 	double aSmidge = 0.5//half a millimeter 
@@ -18,9 +20,9 @@ CSG makePiece(){
 	double smallestDistance = 0.2 * width.getMM() //slightly larger than a small way. defaults to 3
 	double smallerDistance = 0.3333 * width.getMM()//defaults to 5
 	double smallDistance = 0.5333 * width.getMM() //defaults to 8
-	double distance = 0.3125 * width.getMM() //defaults to 10
-	double bigDistance = 0.46875 * width.getMM() //defaults to 15
-	double biggerDistance = 0.625 * width.getMM() //defaults to 20
+	double distance = 0.66667 * width.getMM() //defaults to 10
+	double bigDistance = width.getMM() //defaults to 15
+	double biggerDistance = 1.33333 * width.getMM() //defaults to 20
 	int largerWidth = 4 * width.getMM() //wider than the width parameter
 	double halfWidth = 0.5 * width.getMM() // half of the width parameter
 
@@ -41,36 +43,31 @@ CSG makePiece(){
 		//difference of the outer and inner, gives "crown shell"
 	CSG crown = outerCrown.difference(innerCrown).movez(height.getMM() - smallerDistance);
 		//the cylinder that comes down from the crown and ends at the smallest ring
-	CSG crownCylinder = new Cylinder(smallerDistance, smallerDistance, smallerDistance, (sideRes)).toCSG()
-		.movez(height.getMM() - biggerDistance)
-		crownCylinder.setColor(javafx.scene.paint.Color.CYAN);
+	CSG crownCylinder = new Cylinder(smallerDistance, smallerDistance, distance, (sideRes)).toCSG()
+		.movez(height.getMM() - bigDistance)
 		//located at the base of the crown cylinder, the smallest ring of the three
-	CSG topCylinderRing = new Cylinder (smallestDistance+smallestDistance, smallestDistance + smallestDistance, smallestDistance, (sideRes)).toCSG()
-		.movez(fourFifthsHeight)
-	CSG soFar = CSG.unionAll([topSphere, topDome, crown, crownCylinder, topCylinderRing])
-	return soFar
-/**
+	CSG topCylinderRing = new Cylinder (smallestDistance+smallestDistance, smallestDistance + smallestDistance, evenSmallestDistance, (sideRes)).toCSG()
+		.movez(fourFifthsHeight + evenSmallestDistance)
 		//below the 'head', the middle and middle sized ring of the three
 	CSG midCylinderRing = new Cylinder(smallDistance, smallDistance, evenSmallestDistance, (sideRes)).toCSG()	
 		.movez((fourFifthsHeight - evenSmallestDistance))
-		midCylinderRing.setColor(javafx.scene.paint.Color.DARKORANGE);
 		//below the middle ring, the largest ring of the three
 	CSG botCylinderRing = new Cylinder(distance, distance, evenSmallestDistance, (sideRes)).toCSG()
-		.movez((fourFifthsHeight - smallerDistance - evenSmallestDistance))
-		botCylinderRing.setColor(javafx.scene.paint.Color.DARKSLATEGREY);
+		.movez((fourFifthsHeight - smallestDistance))
 	//beginning of the bottom part, or the base & body of the piece
 		//runs the length of the piece, allows user to access height as a UI parameter via slider
-	CSG connectingSpine = new Cylinder(sphereSize, sphereSize, height, (sideRes)).toCSG() 
+	CSG connectingSpine = new Cylinder(spineWidth, spineWidth, height, (sideRes)).toCSG() 
 		//the 'spine' of the whole piece
 	CSG mainCylinder  = new Cylinder(smallDistance, smallestDistance, fourFifthsHeight, (sideRes)).toCSG()
-		mainCylinder.setColor(javafx.scene.paint.Color.FIREBRICK);
 		//very bottom cone of piece
-	CSG baseCylinder = new Cylinder(width, sphereSize, sphereSize, (sideRes)).toCSG()
-		baseCylinder.setColor(javafx.scene.paint.Color.GREY);
+	CSG baseCylinder = new Cylinder(width, sphereSize, width, (sideRes)).toCSG()
 		//very bottom 'ring' - the 'crenelated' bezel just above the base
 	CSG lowestTurn = new RoundedCylinder(halfWidth, smallestDistance).cornerRadius(evenSmallestDistance).toCSG()
 		.movez(smallestDistance)
 		lowestTurn.setColor(javafx.scene.paint.Color.GREEN);
+	CSG soFar = CSG.unionAll([topSphere, topDome, crown, crownCylinder, topCylinderRing, midCylinderRing, botCylinderRing, connectingSpine, mainCylinder, baseCylinder])
+	return soFar
+/**
 		//'cone' piece that is visible/accessible to a hypothetical hand, near base (but not base)
 	CSG lowCone = new Cylinder(bigDistance, smallerDistance, biggerDistance, (sideRes)).toCSG()
 		.movez(height.getMM() + smallestDistance + smallestDistance)
