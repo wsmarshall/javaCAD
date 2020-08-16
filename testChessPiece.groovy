@@ -44,13 +44,12 @@ CSG makePiece(){
 	CSG crownCylinder = new Cylinder(smallerDistance, smallerDistance, smallerDistance, (sideRes)).toCSG()
 		.movez(height.getMM() - biggerDistance)
 		crownCylinder.setColor(javafx.scene.paint.Color.CYAN);
-	CSG soFar = CSG.unionAll([topSphere, topDome, crown, crownCylinder])
-	return soFar
 		//located at the base of the crown cylinder, the smallest ring of the three
-/**
-	CSG topCylinderRing = new Cylinder (smallestDistance + smallestDistance, smallestDistance).toCSG()
+	CSG topCylinderRing = new Cylinder (smallestDistance+smallestDistance, smallestDistance + smallestDistance, smallestDistance, (sideRes)).toCSG()
 		.movez(fourFifthsHeight)
-		topCylinderRing.setColor(javafx.scene.paint.Color.CHOCOLATE);
+	CSG soFar = CSG.unionAll([topSphere, topDome, crown, crownCylinder, topCylinderRing])
+	return soFar
+/**
 		//below the 'head', the middle and middle sized ring of the three
 	CSG midCylinderRing = new Cylinder(smallDistance, smallDistance, evenSmallestDistance, (sideRes)).toCSG()	
 		.movez((fourFifthsHeight - evenSmallestDistance))
