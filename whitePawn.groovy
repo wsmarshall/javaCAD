@@ -6,7 +6,7 @@ CSG makePawn(){
 	widthAtTop = new LengthParameter("width at top of piece", 6, [50, 0.5])  // width at top of the piece (how much the piece "narrows")
 	sphereSize = new LengthParameter("radius of top sphere", 8, [120.0, 1.0]) //sphere at top of piece
 	//computation of measurements from the parameters
-	sideRes = (int) (height.getMM() * widthAtBottom.getMM())//how faceted (rounded on the sides) the pieces will be 
+	sideRes = (int) (30)//how faceted (rounded on the sides) the pieces will be 
 	widerWidth = (1.5 * widthAtBottom.getMM()) //wider than the default width at bottom
 	lesserWidth = (0.5 * widthAtTop.getMM()) // smaller than the default width at top 
 	lesserHeight = (0.3 * height.getMM()) //shorter than default height
