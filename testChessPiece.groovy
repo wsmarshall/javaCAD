@@ -1,8 +1,6 @@
 //goal: a recognizable item
 //(recognizability in the eye of the beholder)
 
-//TODO code is stalling ("running out of heap space") fix the problems -- how?
-
 CSG makePiece(){
 //set up parameters to use
 	//default total height of the piece
@@ -30,7 +28,6 @@ CSG makePiece(){
 //make shapes to combine
 	//beginning of the top part, or the "head" of the piece
 		//the sphere at the very top
-
 	CSG topSphere = new Sphere(sphereSize).toCSG()	
 		.movez(height.getMM() - evenSmallestDistance) 
 		//hemispheric dome that topSphere rests on
@@ -64,17 +61,11 @@ CSG makePiece(){
 		//very bottom 'ring' - the 'crenelated' bezel just above the base
 	CSG lowestTurn = new RoundedCylinder(halfWidth, smallestDistance).cornerRadius(evenSmallestDistance).toCSG()
 		.movez(smallestDistance)
-		lowestTurn.setColor(javafx.scene.paint.Color.GREEN);
-	CSG soFar = CSG.unionAll([topSphere, topDome, crown, crownCylinder, topCylinderRing, midCylinderRing, botCylinderRing, connectingSpine, mainCylinder, baseCylinder])
-	return soFar
-/**
 		//'cone' piece that is visible/accessible to a hypothetical hand, near base (but not base)
-	CSG lowCone = new Cylinder(bigDistance, smallerDistance, biggerDistance, (sideRes)).toCSG()
-		.movez(height.getMM() + smallestDistance + smallestDistance)
-		lowCone.setColor(javafx.scene.paint.Color.HOTPINK);
+	CSG lowCone = new Cylinder(distance, smallerDistance, biggerDistance, (sideRes)).toCSG()
+		.movez(smallestDistance + smallestDistance)
 		//the 'crenelated bezel' that sits just above the lowCone
-	CSG lowConeTopRing = new RoundedCylinder(smallDistance, smallerDistance).cornerRadius(evenSmallestDistance).toCSG().movez(biggerDistance + evenSmallestDistance)
-		lowConeTopRing.setColor(javafx.scene.paint.Color.LIGHTPINK);
+	CSG lowConeTopRing = new RoundedCylinder(smallDistance, evenSmallestDistance).cornerRadius(evenSmallestDistance).toCSG().movez(biggerDistance + evenSmallestDistance)
 	//combine top part
 	CSG topAssembly = CSG.unionAll([topSphere, topDome, crown, crownCylinder, topCylinderRing, midCylinderRing, botCylinderRing])
 	
@@ -84,11 +75,11 @@ CSG makePiece(){
 	//combine both top and bottom parts to make the full piece
 	CSG fullPiece = CSG.unionAll([topAssembly, bottomPiece])
 	//change the color to the desired shade
-	//fullPiece.setColor(javafx.scene.paint.Color.DIMGRAY);
+	fullPiece.setColor(javafx.scene.paint.Color.DIMGRAY);
 
 	return fullPiece
 		.setRegenerate({makePiece()})//when parameters change, object rerenders to reflect user-specified changes
-*/
+
 }
 CSGDatabase.clear()//necessary in order to change default values when running from code
 return makePiece();
