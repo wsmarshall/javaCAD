@@ -45,7 +45,7 @@ CSG makePiece(){
 		.movez(fourFifthsHeight + evenSmallestDistance)
 		//below the 'head', the middle and middle sized ring of the three
 	CSG midCylinderRing = new Cylinder(smallDistance, smallDistance, evenSmallestDistance, (sideRes)).toCSG()	
-		.movez((fourFifthsHeight - evenSmallestDistance))
+		.movez((fourFifthsHeight))
 		//below the middle ring, the largest ring of the three
 	CSG botCylinderRing = new Cylinder(distance, distance, evenSmallestDistance, (sideRes)).toCSG()
 		.movez((fourFifthsHeight - smallestDistance))
