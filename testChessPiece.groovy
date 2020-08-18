@@ -12,6 +12,7 @@ CSG makePiece(){
 //computation of constants from parameters
 	sideRes = (int) (30)//how rounded (faceted) the sides will be
 	double aSmidge = 0.5//half a millimeter 
+	double aMM = 1 //one millimeter
 	double evenSmallestDistance = 2 * coreWidth.getMM()//only a small ways, as compared to the defined width. defaults to 2
 	double smallestDistance = 3 * coreWidth.getMM() //slightly larger than a small way. defaults to 3
 	double smallerDistance = 5 * coreWidth.getMM()//defaults to 5
@@ -41,13 +42,13 @@ CSG makePiece(){
 	CSG crownCylinder = new Cylinder(smallerDistance, smallerDistance, distance, (sideRes)).toCSG()
 		.movez(height.getMM() - bigDistance)
 		//located at the base of the crown cylinder, the smallest ring of the three
-	CSG topCylinderRing = new Cylinder (smallestDistance+smallestDistance, smallestDistance + smallestDistance, evenSmallestDistance, (sideRes)).toCSG()
+	CSG topCylinderRing = new Cylinder (smallestDistance+smallestDistance, smallestDistance + smallestDistance, aMM, (sideRes)).toCSG()
 		.movez(fourFifthsHeight + evenSmallestDistance)
 		//below the 'head', the middle and middle sized ring of the three
-	CSG midCylinderRing = new Cylinder(smallDistance, smallDistance, evenSmallestDistance, (sideRes)).toCSG()	
-		.movez((fourFifthsHeight))
+	CSG midCylinderRing = new Cylinder(smallDistance, smallDistance, aMM, (sideRes)).toCSG()	
+		.movez((fourFifthsHeight - aSmidge))
 		//below the middle ring, the largest ring of the three
-	CSG botCylinderRing = new Cylinder(distance, distance, evenSmallestDistance, (sideRes)).toCSG()
+	CSG botCylinderRing = new Cylinder(distance, distance, aMM, (sideRes)).toCSG()
 		.movez((fourFifthsHeight - smallestDistance))
 	//beginning of the bottom part, or the base & body of the piece
 		//runs the length of the piece, allows user to access height as a UI parameter via slider
