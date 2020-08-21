@@ -78,7 +78,3 @@ CSG makePiece(){
 
 	return fullPiece
 		.setRegenerate({makePiece()})//when parameters change, object rerenders to reflect user-specified changes
-
-}
-CSGDatabase.clear()//necessary in order to change default values when running from code
-return makePiece();
