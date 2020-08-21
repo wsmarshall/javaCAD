@@ -2,8 +2,8 @@
 
 CSG makeKeychain(){
 //set up parameters
-	//default length 
-
+	//default total length of the key holder
+	length = new LengthParameter("total length of the piece", 10, [100, 1.0])
 	//default thickness (depth)
 
 	//default width
